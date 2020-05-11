@@ -26,10 +26,12 @@
     "class-validator": "^0.12.2",
     "fortjs": "^1.9.0",
     "guid-typescript": "^1.0.9",
+    "helmet": "^3.22.0",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.4.2"
   },
   "devDependencies": {
+    "@types/helmet": "0.0.46",
     "@types/jest": "^24.0.15",
     "@types/node": "^10.12.15",
     "axios": "^0.19.0",
