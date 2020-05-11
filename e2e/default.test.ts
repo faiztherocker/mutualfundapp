@@ -1,10 +1,12 @@
 import axios from "axios";
 import { createApp } from "..";
+import { App } from "../app";
+
 
 
 describe('/default', () => {
 
-    let app;
+    let app: App;
     let httpRequest;
     beforeAll(async () => {
         app = await createApp();

@@ -1,6 +1,6 @@
 import { Fort, MustacheViewEngine } from 'fortjs';
 import { routes } from './routes';
-
+ 
 
 export class App extends Fort {
     constructor() {
@@ -9,3 +9,5 @@ export class App extends Fort {
         this.viewEngine = MustacheViewEngine;
     }
 }
+
+

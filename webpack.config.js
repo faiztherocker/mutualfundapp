@@ -3,7 +3,7 @@ const nodeExternals = require('webpack-node-externals');
 const nodemonPlugin = require('nodemon-webpack-plugin')
 module.exports = {
     entry: [
-        path.resolve(__dirname, 'index.js')
+        path.resolve(__dirname, 'index.ts')
     ],
     devtool: 'source-map',
     target: "node",
@@ -24,15 +24,15 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.js|.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
+            test: /\.ts$/,
+            exclude: /node_modules/,
             use: {
-                loader: 'babel-loader'
+                loader: 'ts-loader'
             }
         }]
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.ts']
     },
     output: {
         filename: 'app.js',

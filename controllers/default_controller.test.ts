@@ -1,10 +1,10 @@
 import { DefaultController } from "./default_controller";
-import { viewResult } from "fortjs";
+import { viewResult, Fort } from "fortjs";
 import { createApp } from "../index";
 
 describe('DefaultController', () => {
-    let app;
-    let controller;
+    let app: Fort;
+    let controller: DefaultController;
     beforeAll(async () => {
         app = await createApp();
         controller = new DefaultController();
@@ -15,8 +15,8 @@ describe('DefaultController', () => {
         const expectedResult = await viewResult('default/index.html', {
             title: 'FortJs'
         });
-        const indexMethodOutput = await controller.index('FortJs');
-        expect(indexMethodOutput).toEqual(expectedResult);
+        const result = await controller.index('FortJs');
+        expect(result).toEqual(expectedResult);
     });
 
     afterAll(() => {
