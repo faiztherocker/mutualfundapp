@@ -4,6 +4,7 @@ import * as path from "path";
 export const createApp = async () => {
     const app = new App();
     await app.create({
+        appName: 'mutualfundsapp',
         folders: [{
             alias: "/",
             path: path.join(__dirname, "../static")
