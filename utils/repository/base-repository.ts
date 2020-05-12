@@ -3,10 +3,11 @@ import { IRead } from './read.interface';
 import { Collection, Db } from 'mongodb';
 
 export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
-  readonly _collection: Collection;
+  _collection: Collection;
 
   constructor(database: Db, collectionName: string) {
     this._collection = database.collection(collectionName);
+    console.log(this._collection);
   }
 
   create(item: T): Promise<T> {
@@ -19,7 +20,9 @@ export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
     throw new Error('Method not implemented.');
   }
   async find(): Promise<T[]> {
-    return await this._collection.find<T>({}).toArray();
+    const result: T[] = await this._collection.find<T>().toArray();
+    console.log(result);
+    return result;
   }
   findOne(id: string): Promise<T> {
     throw new Error('Method not implemented.');

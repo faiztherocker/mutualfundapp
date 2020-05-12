@@ -1,5 +1,6 @@
 import { App } from "./app";
 import * as path from "path";
+import { MongoDBConnection } from './utils/connection/mongodb-connection';
 
 export const createApp = async () => {
     const app = new App();
@@ -12,6 +13,7 @@ export const createApp = async () => {
         }]
     });
     process.env.APP_URL = "http://localhost:4200";
+    await new MongoDBConnection().init();
     return app;
 };
 if (process.env.NODE_ENV !== "test") {

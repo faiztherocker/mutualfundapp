@@ -1,22 +1,15 @@
 import { Investor } from '../models/investor';
+import { BaseRepository } from '../../utils/repository/base-repository';
+import { MongoDBConnection } from '../../utils/connection/mongodb-connection';
 
+export class InvestorRegistrationRepository extends BaseRepository<Investor> {
+  private readonly db;
+  private baseRepository: BaseRepository<Investor>;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  constructor() {
+    super(MongoDBConnection.db, 'investor');
+  }
+}
 
 // export const INVESTOR_DATA: Investor[] = [
 //   {
