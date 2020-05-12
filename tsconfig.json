@@ -1,6 +1,21 @@
 {
     "compilerOptions": {
+        "noImplicitAny": false,
+        "noEmitOnError": true,
+        "removeComments": false,
+        "sourceMap": true,
+        "inlineSources": true,
+        "moduleResolution": "node",
+        "target": "es5",
+        "preserveConstEnums": true,
+        "module": "es6",
+        "lib": [
+            "es5",
+            "es2015",
+            "es6",
+            "dom"
+        ],
         "experimentalDecorators": true,
-        "allowJs": true
+        "esModuleInterop": true
     }
 }

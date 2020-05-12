@@ -1,1 +1,0 @@
-mongodb+srv://faizal:<password>@mutualfundsapp-rrpvk.azure.mongodb.net/test?retryWrites=true&w=majority
