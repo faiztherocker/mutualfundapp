@@ -1,5 +1,5 @@
-# fortjs-javascript-starter
-Starter project for fortjs using javascript
+# fortjs-typescript-starter
+Starter project for fortjs using typescript
 
 # How to use
 
