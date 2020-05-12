@@ -5,7 +5,8 @@ import {
   Route,
   jsonResult,
   Shields,
-  Singleton
+  Singleton,
+  HTTP_STATUS_CODE
 } from 'fortjs';
 
 import { AuthenticationShield } from '../../utils/authentication-shield/authentication-shield';
@@ -20,6 +21,6 @@ export class InvestorRegistrationController extends Controller {
   @Route('/')
   async getInvestors() {
     this._investorService = new InvestorRegistrationService();
-    return jsonResult(this._investorService.getInvestors());
+    return jsonResult(await this._investorService.getInvestors(), HTTP_STATUS_CODE.Ok);
   }
 }

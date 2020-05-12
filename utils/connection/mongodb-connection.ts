@@ -21,6 +21,6 @@ export class MongoDBConnection {
       console.log(exception);
     }
     console.log('The mongoDB has been connected !!');
-    MongoDBConnection.db = this.connection.db('mutualfundsapp');
+    MongoDBConnection.db = this.connection.db('mutualfundsDB');
   }
 }
