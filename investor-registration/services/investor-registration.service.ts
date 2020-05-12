@@ -1,6 +1,6 @@
 import { InvestorRegistrationService } from './investor-registration.interface';
 import { Investor } from '../models/investor';
-import { INVESTOR_DATA } from '../dal/investor-registration.dal';
+import { INVESTOR_DATA } from '../dao/investor-registration.dao';
 
 export class InvestorRegistrationServiceImpl
   implements InvestorRegistrationService {
