@@ -1,6 +1,6 @@
 import { DateOfBirth } from './date-of-birth';
 import { Length } from 'class-validator';
-import { InvestorRegistrationBusinessExceptions } from '../../utils/business-exceptions/investor-registration/investor-registration-business-exceptions';
+import { InvestorRegistrationBusinessExceptions } from '../exceptions/investor-registration.exceptions';
 
 export class Investor {
   id?: string;

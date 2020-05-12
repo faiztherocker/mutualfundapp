@@ -1,5 +1,5 @@
 import { ValidationArguments } from 'class-validator';
-import { INVESTOR_REGISTRATION_BUSINESS_EXCEPTIONS } from './investor-registration-business-exceptions.constants';
+import { INVESTOR_REGISTRATION_BUSINESS_EXCEPTIONS } from './investor-registration.constants.exceptions';
 
 export abstract class InvestorRegistrationBusinessExceptions {
   static investorNameException(validationArguement: ValidationArguments) {

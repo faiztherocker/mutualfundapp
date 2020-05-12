@@ -1,12 +1,8 @@
-import { DefaultController } from './controllers/default_controller';
 import { ParentRoute } from 'fortjs';
-import { InvestorRegistrationController } from './controllers/investor-registration/investor-registration';
+import { InvestorRegistrationController } from './investor-registration/controllers/investor-registration.controller';
+
 
 export const routes: ParentRoute[] = [
-  {
-    path: '/*',
-    controller: DefaultController
-  },
   {
     path: '/investor-registration',
     controller: InvestorRegistrationController

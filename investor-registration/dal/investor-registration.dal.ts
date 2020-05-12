@@ -1,5 +1,4 @@
-import { Investor } from '../../models/Investor/investor';
-import { Guid } from 'guid-typescript';
+import { Investor } from '../models/investor';
 
 export const INVESTOR_DATA: Investor[] = [
   {

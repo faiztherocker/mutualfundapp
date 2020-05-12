@@ -1,5 +1,5 @@
 import { Logger } from 'fortjs';
-import { createLogger, format, transports, level } from 'winston';
+import { createLogger, format, transports } from 'winston';
 import 'winston-daily-rotate-file';
 
 const logger = createLogger({

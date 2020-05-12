@@ -1,4 +1,4 @@
-import { Investor } from '../../models/Investor/investor';
+import { Investor } from '../models/investor';
 import { Guid } from 'guid-typescript';
 
 export interface InvestorRegistrationService {
