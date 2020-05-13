@@ -5,6 +5,7 @@ import { HelmetWall } from './utils/helmet-wall-middleware/helmet-wall-middlewar
 import { ExceptionHandler } from './utils/exception-handler/exception-handler';
 
 export class App extends Fort {
+  
   constructor() {
     super();
     this.routes = routes;
@@ -12,5 +13,6 @@ export class App extends Fort {
     this.logger = new FileLogger();
     this.walls = [HelmetWall];
     this.errorHandler = ExceptionHandler;
+    
   }
 }

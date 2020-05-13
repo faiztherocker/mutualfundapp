@@ -6,6 +6,6 @@ export class ExceptionHandler extends ErrorHandler {
   }
 
   async onServerError(exception: IException) {
-    return exception.message;
+    return exception.stack;
   }
 }

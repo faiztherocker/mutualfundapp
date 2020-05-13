@@ -2,11 +2,11 @@ import { IWrite } from './write.interface';
 import { IRead } from './read.interface';
 import { Collection, Db } from 'mongodb';
 
-export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
+export class BaseRepository<T> implements IWrite<T>, IRead<T> {
   _collection: Collection;
 
-  constructor(database: Db, collectionName: string) {
-    this._collection = database.collection(collectionName);
+  constructor(collection: Collection) {
+    this._collection = collection;
     console.log(this._collection);
   }
 
@@ -20,8 +20,14 @@ export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
     throw new Error('Method not implemented.');
   }
   async find(): Promise<T[]> {
-    const result: T[] = await this._collection.find<T>().toArray();
-    console.log(result);
+    let result: T[] = [];
+    try {
+      result = await this._collection.find<T>().toArray();
+      console.log(result);
+    } catch (exception) {
+    } finally {
+    }
+
     return result;
   }
   findOne(id: string): Promise<T> {

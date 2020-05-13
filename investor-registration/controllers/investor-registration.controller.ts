@@ -5,22 +5,24 @@ import {
   Route,
   jsonResult,
   Shields,
-  Singleton,
   HTTP_STATUS_CODE
 } from 'fortjs';
 
 import { AuthenticationShield } from '../../utils/authentication-shield/authentication-shield';
 import { IInvestorRegistrationService } from '../services/investor-registration.interface';
-import { InvestorRegistrationService } from '../services/investor-registration.service';
+import { INVESTOR_REGISTRATION_TYPE } from '../../utils/dependency-injection/dependency-injection.types';
+import { lazyInject } from '../../utils/dependency-injection/dependency-injection';
+import { inject } from 'inversify';
 
 @Shields([AuthenticationShield])
 export class InvestorRegistrationController extends Controller {
-  private _investorService: IInvestorRegistrationService;
+  @lazyInject(INVESTOR_REGISTRATION_TYPE.IInvestorRegistrationService)
+  private _service: IInvestorRegistrationService;
 
   @Worker([HTTP_METHOD.Get])
   @Route('/')
   async getInvestors() {
-    this._investorService = new InvestorRegistrationService();
-    return jsonResult(await this._investorService.getInvestors(), HTTP_STATUS_CODE.Ok);
+    console.log(this._service);
+    return jsonResult(await this._service.getInvestors(), HTTP_STATUS_CODE.Ok);
   }
 }

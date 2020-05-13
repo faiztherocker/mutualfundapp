@@ -1,16 +1,21 @@
 import { Investor } from '../models/investor';
 // import { INVESTOR_DATA } from '../dao/investor-registration.dao';
 import { IInvestorRegistrationService } from './investor-registration.interface';
-import { BaseRepository } from '../../utils/repository/base-repository';
-import { Singleton } from 'fortjs';
-import { InvestorRegistrationRepository } from '../repository/investor-registration.repository';
+import { inject, injectable } from 'inversify';
+import { DB_TYPES } from '../../utils/dependency-injection/dependency-injection.types';
+import { UnitOfWork } from '../../utils/repository/unit-of-work';
+import { IConnection } from '../../utils/connection/iconnection.interface';
 
+@injectable()
 export class InvestorRegistrationService
   implements IInvestorRegistrationService {
-  private _repository: BaseRepository<Investor>;
+  private _unitOfWork: UnitOfWork;
+
+  constructor(@inject(DB_TYPES.IConnection) connection: IConnection) {
+    this._unitOfWork = new UnitOfWork(connection.dbContext, 'investor');
+  }
 
   async getInvestors(): Promise<Investor[]> {
-    this._repository = new InvestorRegistrationRepository();
-    return await this._repository.find();
+    return await this._unitOfWork.investorRepository.find();
   }
 }
