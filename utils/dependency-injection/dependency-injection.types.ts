@@ -8,4 +8,8 @@ export const INVESTOR_REGISTRATION_TYPE = {
 
 export const LOGGER_TYPE = {
   FileLogger: Symbol.for('FileLogger')
-}
+};
+
+export const UTILITY_TYPE = {
+  IErrorResponseModifier: Symbol.for('IErrorResponseModifier')
+};

@@ -1,7 +1,10 @@
+import { HTTP_METHOD } from 'fortjs';
+
 export class Log {
   message: string;
   endpoint?: string;
-  verb?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  verb?: HTTP_METHOD;
+  ip?: string;
   extra?: {};
 
   constructor({ ...log }: Log) {

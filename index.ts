@@ -11,17 +11,16 @@ import {
 
 export const createApp = async () => {
   // -- INVERSIFYJS DI CONTAINER INSTANTIATION -- //
-  dependencyInjection.init();
+  dependencyInjection.loadAppSpecificDependencies();
 
   // -- MONGODB CONNECTION INITIATION -- //
   const mongoDBConnection: IConnection = container.get<MongoDBConnection>(
     DB_TYPES.IConnection
   );
-
   await mongoDBConnection.init();
 
   // -- INSTANTIATING APPLICATION WIDE DEPENDENCIES -- //
-  dependencyInjection.init2();
+  dependencyInjection.loadBusinessDependencies();
 
   const app = new App();
   await app.create({

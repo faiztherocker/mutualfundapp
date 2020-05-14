@@ -16,6 +16,10 @@ export class InvestorRegistrationService
   }
 
   async getInvestors(): Promise<Investor[]> {
-    return await this._unitOfWork.investorRepository.find();
+    try {
+      return await this._unitOfWork.investorRepository.find();
+    } catch (exception) {
+      throw exception;
+    }
   }
 }

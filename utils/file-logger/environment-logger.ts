@@ -6,7 +6,11 @@ export class EnvironmentLogger {
   constructor() {
     this.logger = createLogger({
       exitOnError: false,
-      format: format.combine(format.timestamp(), format.prettyPrint())
+      format: format.combine(
+        format.timestamp(),
+        format.prettyPrint(),
+        format.errors({ stack: true })
+      )
     });
   }
 }

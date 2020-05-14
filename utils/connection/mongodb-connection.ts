@@ -27,14 +27,16 @@ export class MongoDBConnection implements IConnection {
   async init() {
     try {
       this.connection = await this.client.connect();
-    } catch (exception) {
-      console.log(exception);
-    }
-    this.logger.info(
-      new Log({
+      this.logger.info({
         message: 'Connection to the MongoDB instance has been created'
-      })
-    );
+      });
+    } catch (exception) {
+      this.logger.error({
+        message: 'Failed to connect with mongodb',
+        extra: exception
+      });
+    }
+
     this.dbContext = this.connection.db('mutualfundsDB');
   }
 }

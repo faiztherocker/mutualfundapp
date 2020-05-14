@@ -1,6 +1,6 @@
 import { ErrorHandler, IException } from 'fortjs';
 
-export class ExceptionHandler extends ErrorHandler {
+export class UncaughtExceptionHandler extends ErrorHandler {
   async onBadRequest(exception: IException) {
     return exception.message + 'Hey there';
   }
