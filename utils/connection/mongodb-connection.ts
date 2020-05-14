@@ -1,20 +1,27 @@
 import { MongoClient, Db } from 'mongodb';
 import { IException } from 'fortjs';
 import { IConnection } from './iconnection.interface';
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
+import { LOGGER_TYPE } from '../dependency-injection/dependency-injection.types';
+import { FileLogger } from '../file-logger/file-logger';
+import { Log } from '../file-logger/log.model';
 
 @injectable()
 export class MongoDBConnection implements IConnection {
   dbContext: Db;
-  private static readonly _databaseUri = `mongodb+srv://faizal:Q1GMChi7hZwP7fG8@mutualfundsapp-rrpvk.azure.mongodb.net/test?retryWrites=true&w=majority`;
+  readonly _databaseUri: string;
+
   private client: MongoClient;
   private connection: MongoClient;
+  private logger: FileLogger;
 
-  constructor() {
-    this.client = new MongoClient(MongoDBConnection._databaseUri, {
+  constructor(@inject(LOGGER_TYPE.FileLogger) logger: FileLogger) {
+    this._databaseUri = `mongodb+srv://faizal:Q1GMChi7hZwP7fG8@mutualfundsapp-rrpvk.azure.mongodb.net/test?retryWrites=true&w=majority`;
+    this.client = new MongoClient(this._databaseUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
+    this.logger = logger;
   }
 
   async init() {
@@ -23,7 +30,11 @@ export class MongoDBConnection implements IConnection {
     } catch (exception) {
       console.log(exception);
     }
-    console.log('The mongoDB has been connected !!');
+    this.logger.info(
+      new Log({
+        message: 'Connection to the MongoDB instance has been created'
+      })
+    );
     this.dbContext = this.connection.db('mutualfundsDB');
   }
 }

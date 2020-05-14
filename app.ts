@@ -10,7 +10,7 @@ export class App extends Fort {
     super();
     this.routes = routes;
     this.viewEngine = MustacheViewEngine;
-    this.logger = new FileLogger();
+    // this.logger = new FileLogger();
     this.walls = [HelmetWall];
     this.errorHandler = ExceptionHandler;
     

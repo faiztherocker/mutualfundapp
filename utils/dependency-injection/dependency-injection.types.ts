@@ -5,3 +5,7 @@ export const DB_TYPES = {
 export const INVESTOR_REGISTRATION_TYPE = {
   IInvestorRegistrationService: Symbol.for('IInvestorRegistrationService')
 };
+
+export const LOGGER_TYPE = {
+  FileLogger: Symbol.for('FileLogger')
+}

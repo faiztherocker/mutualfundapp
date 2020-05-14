@@ -1,0 +1,7 @@
+{ endpoint: '/op',
+  verb: 'GET',
+  ip: '192.36.36.69',
+  extra: undefined,
+  level: 'info',
+  message: 'The mongoDB has been connected !!',
+  timestamp: '2020-05-14T07:39:59.946Z' }
