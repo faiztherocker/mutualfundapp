@@ -1,5 +1,5 @@
 export const DB_TYPES = {
-  IConnection: Symbol.for('IConnection')
+  MongoDBConnection: Symbol.for('MongoDBConnection')
 };
 
 export const INVESTOR_REGISTRATION_TYPE = {

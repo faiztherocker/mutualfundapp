@@ -1,5 +1,5 @@
 import { Guard, HttpResult, jsonResult, HTTP_STATUS_CODE } from 'fortjs';
-import { Investor } from '../models/investor';
+import { Investor } from '../models/app/investor';
 import { validate, ValidationError } from 'class-validator';
 import { lazyInject } from '../../utils/dependency-injection/dependency-injection';
 import { UTILITY_TYPE } from '../../utils/dependency-injection/dependency-injection.types';
@@ -10,7 +10,7 @@ export class InvestorValidationGuard extends Guard {
   errorResponseModifier: IErrorResponseModifier;
 
   async check(...args: any[]): Promise<HttpResult> {
-    const investor = new Investor(this.body);
+    const investor = new Investor(this.body as Investor);
     const errors: ValidationError[] = await validate(investor);
     if (errors.length === 0) {
       this.data.investor = investor;

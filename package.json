@@ -24,7 +24,7 @@
   "homepage": "https://github.com/ujjwalguptaofficial/fortjs-typescript-starter#readme",
   "dependencies": {
     "@types/mongodb": "^3.5.16",
-    "@types/mongoose": "^5.7.16",
+    "@types/mongoose": "^5.7.19",
     "@types/morgan": "^1.9.0",
     "class-validator": "^0.12.2",
     "fortjs": "^1.9.0",
@@ -33,6 +33,7 @@
     "inversify": "^5.0.1",
     "inversify-inject-decorators": "^3.1.0",
     "mongodb": "^3.5.7",
+    "mongoose": "^5.9.14",
     "morgan": "^1.10.0",
     "reflect-metadata": "^0.1.13",
     "winston": "^3.2.1",

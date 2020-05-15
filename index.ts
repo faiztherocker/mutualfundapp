@@ -3,7 +3,7 @@ import { App } from './app';
 import * as path from 'path';
 import { MongoDBConnection } from './utils/connection/mongodb-connection';
 import { DB_TYPES } from './utils/dependency-injection/dependency-injection.types';
-import { IConnection } from './utils/connection/iconnection.interface';
+
 import {
   container,
   dependencyInjection
@@ -14,8 +14,8 @@ export const createApp = async () => {
   dependencyInjection.loadAppSpecificDependencies();
 
   // -- MONGODB CONNECTION INITIATION -- //
-  const mongoDBConnection: IConnection = container.get<MongoDBConnection>(
-    DB_TYPES.IConnection
+  const mongoDBConnection: MongoDBConnection = container.get<MongoDBConnection>(
+    DB_TYPES.MongoDBConnection
   );
   await mongoDBConnection.init();
 

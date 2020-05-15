@@ -15,6 +15,7 @@ import {
   IErrorResponseModifier,
   ClassValidatorErrorResponseModifier
 } from '../error-response-modifier/error-response-modifier';
+import { Investor } from '../../investor-registration/models/app/investor';
 
 const container = new Container();
 const { lazyInject } = getDecorators(container);
@@ -25,13 +26,13 @@ const dependencyInjection = {
       .to(FileLogger)
       .inSingletonScope();
     container
-      .bind<IConnection>(DB_TYPES.IConnection)
+      .bind<MongoDBConnection>(DB_TYPES.MongoDBConnection)
       .to(MongoDBConnection)
       .inSingletonScope();
   },
   loadBusinessDependencies: () => {
     container
-      .bind<IInvestorRegistrationService>(
+      .bind<IInvestorRegistrationService<Investor>>(
         INVESTOR_REGISTRATION_TYPE.IInvestorRegistrationService
       )
       .to(InvestorRegistrationService)

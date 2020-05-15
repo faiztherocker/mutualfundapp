@@ -1,4 +1,3 @@
-import { Logger, createLogger, format } from 'winston';
 import {
   EnvironmentLogger,
   DevEnvironmentLogger,

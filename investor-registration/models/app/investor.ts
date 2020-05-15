@@ -1,6 +1,6 @@
 import { DateOfBirth } from './date-of-birth';
 import { MinLength, MaxLength, Length, IsUppercase } from 'class-validator';
-import { INVESTOR_REGISTRATION_BUSINESS_EXCEPTIONS } from '../exceptions/investor-registration-exceptions';
+import { INVESTOR_REGISTRATION_BUSINESS_EXCEPTIONS } from '../../exceptions/investor-registration-exceptions';
 
 export class Investor {
   id?: string;
@@ -34,7 +34,7 @@ export class Investor {
 
   termsAndConditionAcceptanceStatus: boolean;
 
-  constructor({ ...investor }: any) {
+  constructor({ ...investor }: Investor) {
     this.id = Math.random().toString();
     this.name = investor.name;
     this.mobileNumber = investor.mobileNumber;

@@ -1,21 +1,23 @@
 import { IWrite } from './write.interface';
 import { IRead } from './read.interface';
-import { Collection, Db } from 'mongodb';
 import { inject } from 'inversify';
 import { LOGGER_TYPE } from '../dependency-injection/dependency-injection.types';
 import { FileLogger } from '../file-logger/file-logger';
 import { INVESTOR_REGISTRATION_BUSINESS_EXCEPTIONS } from '../../investor-registration/exceptions/investor-registration-exceptions';
+import { Model, Document } from 'mongoose';
 
-export class BaseRepository<T> implements IWrite<T>, IRead<T> {
-  _collection: Collection;
+export class BaseRepository<T extends Document> implements IWrite<T>, IRead<T> {
+  _schemaModel: Model<Document>;
   @inject(LOGGER_TYPE.FileLogger) logger: FileLogger;
 
-  constructor(collection: Collection) {
-    this._collection = collection;
+  constructor(schemaModel: Model<Document>) {
+    this._schemaModel = schemaModel;
   }
 
   create(item: T): Promise<T> {
-    throw new Error('Method not implemented.');
+    try {
+      return null;
+    } catch (exception) {}
   }
   update(item: T): Promise<T> {
     throw new Error('Method not implemented.');
@@ -23,10 +25,11 @@ export class BaseRepository<T> implements IWrite<T>, IRead<T> {
   delete(item: T): Promise<string> {
     throw new Error('Method not implemented.');
   }
-  async find(): Promise<T[]> {
-    let result: T[] = [];
+  async find() {
+    let result: Document[] = [];
     try {
-      result = await this._collection.find<T>().toArray();
+      result = await this._schemaModel.find();
+      console.log(result);
     } catch (exception) {
       this.logger.error({
         message: INVESTOR_REGISTRATION_BUSINESS_EXCEPTIONS.get('DB.GET.FAILED'),
