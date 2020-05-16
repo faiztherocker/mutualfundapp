@@ -10,7 +10,7 @@ export class InvestorValidationGuard extends Guard {
   errorResponseModifier: IErrorResponseModifier;
 
   async check(...args: any[]): Promise<HttpResult> {
-    // const investor = new InvestorDTO(this.body.);
+    // const investor = new InvestorDTO(this.body.id);
     // const errors: ValidationError[] = await validate(investor);
     // if (errors.length === 0) {
     //   this.data.investor = investor;

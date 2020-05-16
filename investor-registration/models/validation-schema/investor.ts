@@ -6,7 +6,7 @@ export class InvestorSchema {
   private static get schemaStructure(): Schema {
     const schema = new Schema<InvestorDAO>(
       {
-        id: {
+        _id: {
           type: Schema.Types.ObjectId,
           required: false
         },

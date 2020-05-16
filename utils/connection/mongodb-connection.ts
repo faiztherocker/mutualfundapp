@@ -7,7 +7,7 @@ import { connect, Mongoose } from 'mongoose';
 export class MongoDBConnection {
   readonly _databaseUri: string;
 
-  connection: Mongoose;
+  dbContext: Mongoose;
   private logger: FileLogger;
 
   constructor(@inject(LOGGER_TYPE.FileLogger) logger: FileLogger) {
@@ -17,19 +17,50 @@ export class MongoDBConnection {
 
   async init() {
     try {
-      this.connection = await connect(
+      this.dbContext = await connect(
         this._databaseUri,
         { useNewUrlParser: true, useUnifiedTopology: true }
       );
-      this.connection.set('debug', true);
+      this.dbContext.set(
+        'debug',
+        (collection, method, query, document, options) => {
+          this.logger.info({
+            message: 'Mongoose Logs',
+            extra: {
+              collection: collection,
+              method: method,
+              query: query,
+              document: document,
+              options: options
+            }
+          });
+        }
+      ); // logg to winston
       this.logger.info({
         message: 'Connection to the MongoDB instance has been created'
       });
+      this.closeConnectionRegistration();
     } catch (exception) {
       this.logger.error({
         message: 'Failed to connect with mongodb',
         extra: exception
       });
     }
+  }
+
+  async closeConnectionRegistration() {
+    process.on('SIGINT', async () => {
+      try {
+        await this.dbContext.connection.close();
+        this.logger.info({
+          message: 'The connection to the database was closed successfully'
+        });
+        process.exit(0);
+      } catch (exception) {
+        this.logger.error({
+          message: exception.message
+        });
+      }
+    });
   }
 }

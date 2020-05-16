@@ -3,9 +3,7 @@ import { IRead } from './read.interface';
 import { inject } from 'inversify';
 import { LOGGER_TYPE } from '../dependency-injection/dependency-injection.types';
 import { FileLogger } from '../file-logger/file-logger';
-import { INVESTOR_REGISTRATION_BUSINESS_EXCEPTIONS } from '../../investor-registration/exceptions/investor-registration-exceptions';
 import { Model, Document } from 'mongoose';
-import { GENERIC_EXCEPTIONS } from '../generic-exceptions-list/generic-exceptions-list';
 
 export class BaseRepository<T extends Document> implements IWrite<T>, IRead<T> {
   _schemaModel: Model<Document>;
@@ -30,7 +28,6 @@ export class BaseRepository<T extends Document> implements IWrite<T>, IRead<T> {
     let result: T[] = [];
     try {
       result = (await this._schemaModel.find()) as T[];
-      console.log(result);
     } catch (exception) {
       this.logger.error({
         message: exception.message,

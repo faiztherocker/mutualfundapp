@@ -18,7 +18,7 @@ export class InvestorRegistrationService
     @inject(DB_TYPES.MongoDBConnection) dbContext: MongoDBConnection
   ) {
     this._unitOfWork = new UnitOfWork(
-      InvestorSchema.getSchema(dbContext.connection)
+      InvestorSchema.getSchema(dbContext.dbContext)
     );
   }
 
@@ -44,7 +44,7 @@ export class InvestorRegistrationService
 
   toInvestorDTO(investorDAO: InvestorDAO): InvestorDTO {
     return new InvestorDTO(
-      investorDAO._id,
+      investorDAO.id,
       investorDAO.name,
       investorDAO.mobileNumber,
       investorDAO.emailId,

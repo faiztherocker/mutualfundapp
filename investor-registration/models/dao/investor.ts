@@ -3,7 +3,7 @@ import { DateOfBirthDAO } from './date-of-birth';
 import { Document } from 'mongoose';
 
 export class InvestorDAO extends Document {
-  id?: string;
+  _id: string;
 
   name: string;
 
@@ -19,7 +19,7 @@ export class InvestorDAO extends Document {
 
   constructor({ ...investor }: InvestorDAO) {
     super();
-    this.id = Math.random().toString();
+    this._id = investor._id;
     this.name = investor.name;
     this.mobileNumber = investor.mobileNumber;
     this.emailId = investor.emailId;
