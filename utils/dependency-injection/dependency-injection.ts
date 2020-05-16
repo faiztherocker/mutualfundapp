@@ -15,7 +15,7 @@ import {
   IErrorResponseModifier,
   ClassValidatorErrorResponseModifier
 } from '../error-response-modifier/error-response-modifier';
-import { Investor } from '../../investor-registration/models/app/investor';
+import { InvestorDTO } from '../../investor-registration/models/dto/investor';
 
 const container = new Container();
 const { lazyInject } = getDecorators(container);
@@ -32,7 +32,7 @@ const dependencyInjection = {
   },
   loadBusinessDependencies: () => {
     container
-      .bind<IInvestorRegistrationService<Investor>>(
+      .bind<IInvestorRegistrationService<InvestorDTO>>(
         INVESTOR_REGISTRATION_TYPE.IInvestorRegistrationService
       )
       .to(InvestorRegistrationService)

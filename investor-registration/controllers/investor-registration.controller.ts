@@ -7,7 +7,8 @@ import {
   Shields,
   HTTP_STATUS_CODE,
   Guards,
-  textResult
+  textResult,
+  HttpResult
 } from 'fortjs';
 
 import { AuthenticationShield } from '../../utils/authentication-shield/authentication-shield';
@@ -16,22 +17,28 @@ import { INVESTOR_REGISTRATION_TYPE } from '../../utils/dependency-injection/dep
 import { lazyInject } from '../../utils/dependency-injection/dependency-injection';
 import { LoggingGuard } from '../../utils/logging-guard/logging-guard';
 import { InvestorValidationGuard } from '../exceptions/investor-validation-guard';
-import { Investor } from '../models/app/investor';
+import { InvestorDTO } from '../models/dto/investor';
+import { GENERIC_EXCEPTIONS } from '../../utils/generic-exceptions-list/generic-exceptions-list';
 
 @Shields([AuthenticationShield])
 export class InvestorRegistrationController extends Controller {
   @lazyInject(INVESTOR_REGISTRATION_TYPE.IInvestorRegistrationService)
-  private _service: IInvestorRegistrationService<Investor>;
+  private readonly _service: IInvestorRegistrationService<InvestorDTO>;
 
   @Worker([HTTP_METHOD.Get])
   @Route('/')
   @Guards([LoggingGuard])
-  async getInvestors() {
+  async getInvestors(): Promise<HttpResult> {
     try {
-      return jsonResult(await this._service.find(), HTTP_STATUS_CODE.Ok);
+      if (this._service) {
+        const result = await this._service.find();
+        return jsonResult(result, HTTP_STATUS_CODE.Ok);
+      } else {
+        throw Error(GENERIC_EXCEPTIONS.get('SERVICE.NOT.AVAILABLE'));
+      }
     } catch (exception) {
       return jsonResult(
-        { error: exception.stack },
+        { error: exception.message },
         HTTP_STATUS_CODE.InternalServerError
       );
     }

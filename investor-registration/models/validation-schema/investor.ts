@@ -3,12 +3,7 @@ import { InvestorDAO } from '../dao/investor';
 import { DateOfBirthSchema } from './date-of-birth';
 
 export class InvestorSchema {
-  private _connection: Mongoose;
-
-  constructor(connection: Mongoose) {
-    this._connection = connection;
-  }
-  private get schemaStructure(): Schema {
+  private static get schemaStructure(): Schema {
     const schema = new Schema<InvestorDAO>(
       {
         id: {
@@ -42,10 +37,11 @@ export class InvestorSchema {
     return schema;
   }
 
-  get schema() {
-    return this._connection.model<InvestorDAO>(
-      'Investor',
-      this.schemaStructure
-    );
+  static getSchema(connection: Mongoose) {
+    if (connection.models.Investor) {
+      return connection.models.Investor;
+    } else {
+      return connection.model<InvestorDAO>('Investor', this.schemaStructure);
+    }
   }
 }

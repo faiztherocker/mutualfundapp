@@ -18,7 +18,4 @@ INVESTOR_REGISTRATION_BUSINESS_EXCEPTIONS.set(
   `The value of Investor Mobile Number should be of 10 characters`
 );
 
-INVESTOR_REGISTRATION_BUSINESS_EXCEPTIONS.set(
-  'DB.GET.FAILED',
-  `Failure in fetching data from the database`
-);
+

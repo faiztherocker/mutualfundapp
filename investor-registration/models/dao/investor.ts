@@ -17,19 +17,16 @@ export class InvestorDAO extends Document {
 
   termsAndConditionAcceptanceStatus: boolean;
 
-  constructor(
-    { ...investor }: InvestorDAO,
-    { ...dateOfBirth }: DateOfBirthDAO
-  ) {
+  constructor({ ...investor }: InvestorDAO) {
     super();
     this.id = Math.random().toString();
     this.name = investor.name;
     this.mobileNumber = investor.mobileNumber;
     this.emailId = investor.emailId;
     this.pancardNumber = investor.pancardNumber;
-    this.dateOfBirth.year = dateOfBirth.year;
-    this.dateOfBirth.month = dateOfBirth.month;
-    this.dateOfBirth.day = dateOfBirth.day;
+    this.dateOfBirth.year = investor.dateOfBirth.year;
+    this.dateOfBirth.month = investor.dateOfBirth.month;
+    this.dateOfBirth.day = investor.dateOfBirth.day;
     this.termsAndConditionAcceptanceStatus =
       investor.termsAndConditionAcceptanceStatus;
   }

@@ -1,4 +1,4 @@
-import { Schema, Mongoose } from 'mongoose';
+import { Schema } from 'mongoose';
 import { DateOfBirthDAO } from '../dao/date-of-birth';
 
 export class DateOfBirthSchema {
