@@ -31,7 +31,11 @@ export class InvestorSchema {
         }
       },
       {
-        collection: 'investor'
+        collection: 'investor',
+        timestamps: {
+          createdAt: 'createdAt',
+          updatedAt: 'lastModified'
+        }
       }
     );
     return schema;

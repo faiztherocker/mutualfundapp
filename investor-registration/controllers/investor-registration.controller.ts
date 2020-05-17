@@ -19,6 +19,7 @@ import { LoggingGuard } from '../../utils/logging-guard/logging-guard';
 import { InvestorValidationGuard } from '../exceptions/investor-validation-guard';
 import { InvestorDTO } from '../models/dto/investor';
 import { GENERIC_EXCEPTIONS } from '../../utils/generic-exceptions-list/generic-exceptions-list';
+import { AppendHeaderGuard } from '../../utils/append-header-guard/append-header-guard';
 
 @Shields([AuthenticationShield])
 export class InvestorRegistrationController extends Controller {
@@ -27,7 +28,7 @@ export class InvestorRegistrationController extends Controller {
 
   @Worker([HTTP_METHOD.Get])
   @Route('/')
-  @Guards([LoggingGuard])
+  @Guards([AppendHeaderGuard, LoggingGuard])
   async getInvestors(): Promise<HttpResult> {
     try {
       if (this._service) {
@@ -46,7 +47,7 @@ export class InvestorRegistrationController extends Controller {
 
   @Worker([HTTP_METHOD.Post])
   @Route('/')
-  @Guards([InvestorValidationGuard, LoggingGuard])
+  @Guards([AppendHeaderGuard, InvestorValidationGuard, LoggingGuard])
   async saveInvestor() {
     return textResult('POST Endpoint working as expected', HTTP_STATUS_CODE.Ok);
   }
