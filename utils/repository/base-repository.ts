@@ -3,7 +3,7 @@ import { IRead } from './read.interface';
 import { inject } from 'inversify';
 import { LOGGER_TYPE } from '../dependency-injection/dependency-injection.types';
 import { FileLogger } from '../file-logger/file-logger';
-import { Model, Document, FilterQuery } from 'mongoose';
+import { Model, Document } from 'mongoose';
 
 export class BaseRepository<T extends Document> implements IWrite<T>, IRead<T> {
   _schemaModel: Model<Document>;
@@ -27,10 +27,9 @@ export class BaseRepository<T extends Document> implements IWrite<T>, IRead<T> {
   async find(): Promise<T[]> {
     let result: T[] = [];
     try {
-      result = (await this._schemaModel.find(
-        {},
-        { createdAt: 0, lastModified: 0 }
-      )) as T[];
+      result = (await this._schemaModel
+        .find({}, { createdAt: 0, lastModified: 0 })
+        .sort({ createdAt: -1 })) as T[];
       return result;
     } catch (exception) {
       this.logger.error({

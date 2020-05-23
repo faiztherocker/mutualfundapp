@@ -21,21 +21,17 @@ export class MongoDBConnection {
         this._databaseUri,
         { useNewUrlParser: true, useUnifiedTopology: true }
       );
-      this.dbContext.set(
-        'debug',
-        (collection, method, query, document, options) => {
-          this.logger.info({
-            message: 'Mongoose Logs',
-            extra: {
-              collection: collection,
-              method: method,
-              query: query,
-              document: document,
-              options: options
-            }
-          });
-        }
-      ); // logg to winston
+      this.dbContext.set('debug', (collection, method, query, options) => {
+        this.logger.info({
+          message: 'Mongoose Logs',
+          extra: {
+            collection: collection,
+            method: method,
+            query: query,
+            options: options
+          }
+        });
+      }); // logg to winston
       this.logger.info({
         message: 'Connection to the MongoDB instance has been created'
       });
