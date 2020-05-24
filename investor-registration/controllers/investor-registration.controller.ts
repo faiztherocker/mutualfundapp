@@ -28,7 +28,7 @@ export class InvestorRegistrationController extends Controller {
 
   @Worker([HTTP_METHOD.Get])
   @Route('/')
-  @Guards([AppendHeaderGuard, LoggingGuard])
+  @Guards([LoggingGuard])
   async getInvestors(): Promise<HttpResult> {
     try {
       if (this._service) {

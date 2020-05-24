@@ -1,27 +1,45 @@
 import {
   ErrorHandler,
-  IException
+  IException,
+  HttpResult,
+  jsonResult,
+  HTTP_STATUS_CODE
 } from 'fortjs';
 import { GENERIC_EXCEPTIONS } from '../generic-exceptions-list/generic-exceptions-list';
 
 export class UncaughtExceptionHandler extends ErrorHandler {
-  async onBadRequest(exception: IException) {
-    return exception.message;
+  async onBadRequest(exception: IException): Promise<HttpResult> {
+    return jsonResult(
+      { error: exception.message },
+      HTTP_STATUS_CODE.BadRequest
+    );
   }
 
-  async onServerError(exception: IException) {
-    return exception.message;
+  async onServerError(exception: IException): Promise<HttpResult> {
+    return jsonResult(
+      { error: exception.message },
+      HTTP_STATUS_CODE.InternalServerError
+    );
   }
 
-  async onNotFound(url: string): Promise<string> {
-    return GENERIC_EXCEPTIONS.get('PAGE.NOT.FOUND');
+  async onNotFound(url: string): Promise<HttpResult> {
+    return jsonResult(
+      { error: GENERIC_EXCEPTIONS.get('PAGE.NOT.FOUND') },
+      HTTP_STATUS_CODE.NotFound
+    );
   }
 
-  async onMethodNotAllowed() {
-    return GENERIC_EXCEPTIONS.get('METHOD.NOT.ALLOWED');
+  async onMethodNotAllowed(): Promise<HttpResult> {
+    return jsonResult(
+      { error: GENERIC_EXCEPTIONS.get('METHOD.NOT.ALLOWED') },
+      HTTP_STATUS_CODE.MethodNotAllowed
+    );
   }
 
-  async onNotAcceptableRequest() {
-    return GENERIC_EXCEPTIONS.get('METHOD.NOT.ALLOWED');
+  async onNotAcceptableRequest(): Promise<HttpResult> {
+    return jsonResult(
+      { error: GENERIC_EXCEPTIONS.get('REQUEST.NOT.ACCEPTABLE') },
+      HTTP_STATUS_CODE.MethodNotAllowed
+    );
   }
 }

@@ -23,8 +23,8 @@ module.exports = {
   module: {
     rules: [
       {
+        exclude: [/node_modules/, /client/],
         test: /\.ts$/,
-        exclude: /node_modules/,
         use: {
           loader: 'ts-loader'
         }
@@ -35,7 +35,7 @@ module.exports = {
     extensions: ['.ts']
   },
   watchOptions: {
-    ignored: ['/node_modules/**','client/**']
+    ignored: ['/node_modules/**', 'client/**']
   },
   output: {
     filename: 'app.js',
@@ -45,3 +45,5 @@ module.exports = {
   plugins: [new nodemonPlugin()],
   externals: [nodeExternals()]
 };
+
+console.log(path.resolve(__dirname, 'client/mutual-fund-app'));

@@ -27,7 +27,7 @@
     "@types/mongoose": "^5.7.19",
     "@types/morgan": "^1.9.0",
     "class-validator": "^0.12.2",
-    "fortjs": "^1.9.0",
+    "fortjs": "^1.15.0",
     "guid-typescript": "^1.0.9",
     "helmet": "^3.22.0",
     "inversify": "^5.0.1",
