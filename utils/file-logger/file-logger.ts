@@ -1,35 +1,26 @@
-import { Logger } from 'fortjs';
-import { createLogger, format, transports } from 'winston';
 import 'winston-daily-rotate-file';
+import { injectable } from 'inversify';
+import { Log } from './log.model';
+import { LoggerFactory } from './logger-factory';
+import { EnvironmentLogger } from './environment-logger';
 
-const logger = createLogger({
-  level: 'info',
-  format: format.json(),
-  transports: [
-    new transports.DailyRotateFile({
-      datePattern: `DD-MM-YYYY`,
-      filename: `logs/error.log`,
-      level: `error`
-    }),
-    new transports.DailyRotateFile({
-      datePattern: `DD-MM-YYYY`,
-      filename: `logs/all.log`,
-      level: `info`
-    })
-  ]
-});
+@injectable()
+export class FileLogger {
+  private _logger: EnvironmentLogger;
 
-export class FileLogger extends Logger {
-  info(message: string) {
-    logger.info(message);
+  constructor() {
+    this._logger = LoggerFactory.getLogger().getEnvironmentLogger(
+      process.env.NODE_ENV
+    );
   }
-  error(message: string) {
-    logger.error(message);
+
+  info(log: Log) {
+    this._logger.logger.info({ ...log });
   }
-  debug(message: string) {
-    logger.debug(message);
+  error(log: Log) {
+    this._logger.logger.error({ ...log });
   }
-  log(logLevel, message: string) {
-    logger.log(logLevel, message);
+  debug(log: Log) {
+    this._logger.logger.debug({ ...log });
   }
 }

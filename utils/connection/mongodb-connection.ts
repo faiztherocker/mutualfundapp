@@ -1,29 +1,62 @@
-import { MongoClient, Db } from 'mongodb';
-import { IException } from 'fortjs';
-import { IConnection } from './iconnection.interface';
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
+import { LOGGER_TYPE } from '../dependency-injection/dependency-injection.types';
+import { FileLogger } from '../file-logger/file-logger';
+import { connect, Mongoose } from 'mongoose';
 
 @injectable()
-export class MongoDBConnection implements IConnection {
-  dbContext: Db;
-  private static readonly _databaseUri = `mongodb+srv://faizal:Q1GMChi7hZwP7fG8@mutualfundsapp-rrpvk.azure.mongodb.net/test?retryWrites=true&w=majority`;
-  private client: MongoClient;
-  private connection: MongoClient;
+export class MongoDBConnection {
+  readonly _databaseUri: string;
 
-  constructor() {
-    this.client = new MongoClient(MongoDBConnection._databaseUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+  dbContext: Mongoose;
+  private logger: FileLogger;
+
+  constructor(@inject(LOGGER_TYPE.FileLogger) logger: FileLogger) {
+    this._databaseUri = `mongodb+srv://faizal:Q1GMChi7hZwP7fG8@mutualfundsapp-rrpvk.azure.mongodb.net/mutualfundsDB?retryWrites=true&w=majority`;
+    this.logger = logger;
   }
 
   async init() {
     try {
-      this.connection = await this.client.connect();
+      this.dbContext = await connect(
+        this._databaseUri,
+        { useNewUrlParser: true, useUnifiedTopology: true }
+      );
+      this.dbContext.set('debug', (collection, method, query, options) => {
+        this.logger.info({
+          message: 'Mongoose Logs',
+          extra: {
+            collection: collection,
+            method: method,
+            query: query,
+            options: options
+          }
+        });
+      }); // logg to winston
+      this.logger.info({
+        message: 'Connection to the MongoDB instance has been created'
+      });
+      this.closeConnectionRegistration();
     } catch (exception) {
-      console.log(exception);
+      this.logger.error({
+        message: 'Failed to connect with mongodb',
+        extra: exception
+      });
     }
-    console.log('The mongoDB has been connected !!');
-    this.dbContext = this.connection.db('mutualfundsDB');
+  }
+
+  async closeConnectionRegistration() {
+    process.on('SIGINT', async () => {
+      try {
+        await this.dbContext.connection.close();
+        this.logger.info({
+          message: 'The connection to the database was closed successfully'
+        });
+        process.exit(0);
+      } catch (exception) {
+        this.logger.error({
+          message: exception.message
+        });
+      }
+    });
   }
 }

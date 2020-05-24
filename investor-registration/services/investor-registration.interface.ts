@@ -1,8 +1,8 @@
-import { Investor } from '../models/investor';
-import { Guid } from 'guid-typescript';
+import { IRead } from '../../utils/service/iread.interface';
+import { IWrite } from '../../utils/service/iwrite.interface';
 
-export interface IInvestorRegistrationService {
-  getInvestors(): Promise<Investor[]>;
+export interface IInvestorRegistrationService<T> extends IWrite<T>, IRead<T> {
+  //  getInvestors(): Promise<T[]>;
   //   saveInvestor(investor: Investor): Investor;
   //   getInvestorById(investorId: Guid): Investor;
   //   updateInvestor(investor: Investor): Investor;

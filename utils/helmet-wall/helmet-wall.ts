@@ -3,8 +3,8 @@ import { xssFilter, hsts } from 'helmet';
 
 export class HelmetWall extends Wall {
   async onIncoming() {
-    await this.callMiddleWare(xssFilter());
-    return await this.callMiddleWare(hsts({force:true}));
+    //await this.callMiddleWare(xssFilter());
+    //return await this.callMiddleWare(hsts({force:true}));
   }
 
   callMiddleWare(middleWare) {

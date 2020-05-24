@@ -1,4 +1,7 @@
 {
+    "exclude": [
+        "./client/**"
+    ],
     "compilerOptions": {
         "noImplicitAny": false,
         "noEmitOnError": true,

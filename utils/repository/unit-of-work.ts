@@ -1,18 +1,20 @@
-import { Db, Collection } from 'mongodb';
-import { Investor } from '../../investor-registration/models/investor';
 import { BaseRepository } from './base-repository';
+import { Model, Document } from 'mongoose';
+import { InvestorDAO } from '../../investor-registration/models/dao/investor';
 
 export class UnitOfWork {
-  private _investorRepository: BaseRepository<Investor>;
-  _dbContext: Collection;
+  private _investorRepository: BaseRepository<InvestorDAO>;
+  _schemaModel: Model<Document>;
 
-  constructor(dbContext: Db, collection: string) {
-    this._dbContext = dbContext.collection(collection);
+  constructor(schemaModel: Model<Document>) {
+    this._schemaModel = schemaModel;
   }
 
-  get investorRepository(): BaseRepository<Investor> {
+  get investorRepository(): BaseRepository<InvestorDAO> {
     if (!this._investorRepository) {
-      this._investorRepository = new BaseRepository<Investor>(this._dbContext);
+      this._investorRepository = new BaseRepository<InvestorDAO>(
+        this._schemaModel
+      );
     }
     return this._investorRepository;
   }

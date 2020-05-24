@@ -1,18 +1,16 @@
 import { Fort, MustacheViewEngine } from 'fortjs';
 import { routes } from './routes';
-import { FileLogger } from './utils/file-logger/file-logger';
-import { HelmetWall } from './utils/helmet-wall-middleware/helmet-wall-middleware';
-import { ExceptionHandler } from './utils/exception-handler/exception-handler';
+
+import { UncaughtExceptionHandler } from './utils/uncaught-exception-handler/uncaught-exception-handler';
+import { HelmetWall } from './utils/helmet-wall/helmet-wall';
+import { AppendHeaderWall } from './utils/append-header-wall/append-header-wall';
 
 export class App extends Fort {
-  
   constructor() {
     super();
     this.routes = routes;
     this.viewEngine = MustacheViewEngine;
-    this.logger = new FileLogger();
-    this.walls = [HelmetWall];
-    this.errorHandler = ExceptionHandler;
-    
+    this.walls = [HelmetWall, AppendHeaderWall];
+    this.errorHandler = UncaughtExceptionHandler;
   }
 }
